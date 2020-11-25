@@ -24,6 +24,7 @@ navagate to the inner todo folder and npm i
 
 ## Using TODO
 To use todo, follow these steps:
+- you must have access to a local API server that can handle a route for todo on port 3001
 - npm start
 - npm test
 
