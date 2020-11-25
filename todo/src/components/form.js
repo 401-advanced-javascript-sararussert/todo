@@ -9,8 +9,9 @@ function TodoForm(props) {
   const [item, setItem] = useState({});
 
   function handleInputChange(e) {
-    item[e.target.name]= e.target.value;
-    setItem(item);
+    let update = item
+    update[e.target.name]= e.target.value;
+    setItem(update);
   };
 
   function handleSubmit(e) {
@@ -44,7 +45,7 @@ function TodoForm(props) {
 
         <Form.Group controlId="formBasicRange">
           <Form.Label>Difficulty</Form.Label>
-          <Form.Control defaultValue="1" type="range" min="1" max="5" name="difficulty" onChange={handleInputChange} />
+          <Form.Control defaultValue="0" type="range" min="1" max="5" name="difficulty" onChange={handleInputChange} />
         </Form.Group>
         <Button type="submit" variant="secondary">Add Task</Button>
       </Form>

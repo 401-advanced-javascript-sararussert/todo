@@ -2,8 +2,10 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import TodoForm from './form.js';
 import TodoList from './list.js';
-
 import './todo.scss';
+const axios = require('axios');
+
+const todoAPI = 'http://localhost:3001/todo';
 
 function ToDo() {
 
@@ -18,14 +20,24 @@ function ToDo() {
   const [id, setId] = useState(6);
   
   function addItem(item) {
+    item.due = new Date();
     item._id = id;
     setId(id + 1);
     item.complete = false;
-    let soup = [];
-    list.forEach(item => soup.push(item))
-    soup.push(item);
-    setList(soup);
-    console.log(soup);
+
+    axios({
+      method: 'post',
+      url: todoAPI,
+      data: item
+      
+    }).then(results => console.log(results.data));
+
+
+    // let soup = [];
+    // list.forEach(item => soup.push(item))
+    // soup.push(item);
+    // setList(soup);
+    // console.log(soup);
   }
 
   function toggleComplete(id) {
@@ -37,8 +49,20 @@ function ToDo() {
     }
   }
 
+  async function getTodoItems() {
+    try {
+      const response = await axios(todoAPI);
+      setList(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+
+
+
   useEffect(() => {
-  },[list]);
+  }, []);
 
   return (
     <>
