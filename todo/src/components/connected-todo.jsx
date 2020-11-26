@@ -1,5 +1,6 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { SiteContext } from '../context/site.jsx';
 import TodoForm from './form.js';
 import TodoList from './list.js';
 import './todo.scss';
@@ -10,6 +11,7 @@ const todoAPI = 'http://localhost:3001/todo';
 
 const ToDo = () => {
 
+  const siteContext = useContext(SiteContext);
   const [list, setList] = useState([]);
   const [id, setId] = useState(Math.floor(Math.random()*100));
 
@@ -75,7 +77,7 @@ const ToDo = () => {
     });
 
   }
-
+  
   const _getTodoItems = () => {
     axios.get(todoAPI)
       .then(function (response) {
@@ -87,6 +89,13 @@ const ToDo = () => {
     }
 
   useEffect(_getTodoItems, []);
+
+  list.sort(function(a, b){
+    let sortKey = siteContext.sortBy
+    a = a[sortKey];
+    b = b[sortKey];
+    return a - b;
+  })  
 
   return (
     <>
