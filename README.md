@@ -33,6 +33,7 @@ for reference:
 https://react-bootstrap.github.io/
 https://reactjs.org/
 Udemy- react course from Dr. Angela Yu
+Pagination: https://www.digitalocean.com/community/tutorials/how-to-build-custom-pagination-with-react
 
 # UML
 ![UML](UML.jpeg)
