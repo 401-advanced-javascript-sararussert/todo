@@ -6,7 +6,8 @@ import { Row, Col } from 'react-bootstrap';
 
 
 function TodoForm(props) {
-  const [item, setItem] = useState({});
+  const [item, setItem] = useState({difficulty: 1});
+  
 
   function handleInputChange(e) {
     let update = item

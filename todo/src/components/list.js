@@ -1,8 +1,12 @@
 import React from 'react';
+import { useContext } from 'react';
+import { SiteContext } from '../context/site.jsx';
 import Toast from 'react-bootstrap/Toast'
 import Button from 'react-bootstrap/Button'
 
 function TodoList(props) {
+
+  const siteContext = useContext(SiteContext);
 
   function itemCompleteHead(item) {
     if (item.complete === true) {
@@ -18,12 +22,46 @@ function TodoList(props) {
       return 'Item to be completed: ';
     }
   }
+
+  function setClass(item) {
+    if (siteContext.showCompleted === true) {
+      return 'none'
+    } else {
+      return `complete-${item.complete.toString()}`;
+    }
+  }
+
+  // function limitEntries(array) {
+  //   let entries = siteContext.listSize;
+  //   let pages = Math.ceil(array.length/entries);
+  //   let pageRange = [];
+  //   let arrayCount = 0;
+  //   for (let i = 0; i < pages; i++) {
+  //     let innerArray = [];
+  //     if (arrayCount < array.length) {
+  //       innerArray.push(array[arrayCount]);
+  //     }
+  //     if (arrayCount < array.length) {
+  //       innerArray.push(array[arrayCount + 1]);
+  //     }
+  //     if (arrayCount < array.length) {
+  //       innerArray.push(array[arrayCount + 2]);
+  //     }
+  //     pageRange.push(innerArray);
+  //     arrayCount += 3;
+  //   }
+  //   return pageRange;
+  // }
+
+  // let pages = limitEntries(props.list);
+  // let page1 = pages[0]
   
   return(
     <div>
+        <button onClick={() => siteContext.toggleComplete()}>{siteContext.toggleMsg}</button>
         {props.list.map(item => (
           <Toast
-            className={`complete-${item.complete.toString()}`}
+            className={setClass(item)}
             key={item._id} onClose={() => props.handleDelete(item._id)}>
             <Toast.Header closeButton="true">
               <small>{itemCompleteHead(item)}</small>
@@ -45,12 +83,3 @@ function TodoList(props) {
 }
 
 export default TodoList;
-
-{/* <Toast>
-  <Toast.Header onClose={}>
-    <img src="holder.js/20x20?text=%20" className="rounded mr-2" alt="" />
-    <strong className="mr-auto">Bootstrap</strong>
-    <small>11 mins ago</small>
-  </Toast.Header>
-  <Toast.Body>Hello, world! This is a toast message.</Toast.Body>
-</Toast> */}
